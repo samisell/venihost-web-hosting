@@ -13,7 +13,7 @@ const businesses = [
     tagline: 'High-Speed WISP Internet',
     description: 'Reliable wireless internet solutions for homes and businesses. We bridge the digital divide with cutting-edge WISP technology, ensuring you stay connected no matter where you are.',
     icon: <Wifi className="w-8 h-8" />,
-    image: '/CyberPanel-409965283.webp',
+    image: '/servers-delivering-web-content.jpg',
     features: ['Unlimited Data', 'Low Latency', '24/7 Monitoring', 'Quick Installation'],
     color: 'bg-blue-600',
     link: '#'
@@ -35,7 +35,7 @@ const businesses = [
     tagline: 'Code Training School',
     description: 'Empowering the next generation of tech talent. Our intensive bootcamps and courses cover full-stack development, UI/UX design, and data science, led by industry experts.',
     icon: <Code className="w-8 h-8" />,
-    image: '/photo_5909013785798708482_y.jfif',
+    image: '/smiling-engineer-using-laptop-data-center-oversee-hardware.jpg',
     features: ['Hands-on Projects', 'Mentorship', 'Job Placement', 'Certification'],
     color: 'bg-indigo-600',
     link: '#'

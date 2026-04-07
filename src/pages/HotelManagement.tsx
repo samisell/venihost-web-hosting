@@ -49,7 +49,7 @@ const HotelManagement = () => {
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-primary text-white">
         <div className="absolute inset-0 opacity-10">
-          <OptimizedImage src="/photo_5909013785798708480_y.jfif" alt="Background" className="object-cover" />
+          <OptimizedImage src="/photo_5951573248094964863_y.jpg" alt="Hotel Interior" className="object-cover" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -119,8 +119,8 @@ const HotelManagement = () => {
               <div className="relative">
                 <div className="absolute -inset-4 bg-secondary/20 rounded-[3rem] blur-2xl" />
                 <OptimizedImage 
-                  src="/photo_5909013785798708480_y.jfif" 
-                  alt="Hotel Management Hero" 
+                  src="/photo_5951573248094964864_y.jpg" 
+                  alt="Hotel Management Dashboard" 
                   className="relative rounded-[2rem] shadow-2xl"
                   priority={true}
                 />
@@ -166,13 +166,18 @@ const HotelManagement = () => {
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="bg-secondary rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-secondary/30">
-            <h2 className="text-4xl md:text-6xl font-extrabold mb-8">Ready to Optimize Your Hotel?</h2>
-            <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-              Join thousands of hoteliers who have streamlined their operations with Venihost.
-            </p>
-            <a href="#request-form" className="inline-block px-10 py-5 bg-white text-secondary rounded-full font-bold text-xl shadow-xl hover:scale-105 transition-all">
-              Get Started Today
-            </a>
+            <div className="absolute inset-0 opacity-20">
+              <OptimizedImage src="/photo_5951573248094964865_y.jpg" alt="Hotel Solution" className="object-cover" />
+            </div>
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-6xl font-extrabold mb-8">Ready to Optimize Your Hotel?</h2>
+              <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+                Join thousands of hoteliers who have streamlined their operations with Venihost.
+              </p>
+              <a href="#request-form" className="inline-block px-10 py-5 bg-white text-secondary rounded-full font-bold text-xl shadow-xl hover:scale-105 transition-all">
+                Get Started Today
+              </a>
+            </div>
           </div>
         </div>
       </section>

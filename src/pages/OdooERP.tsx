@@ -49,7 +49,11 @@ const OdooERP = () => {
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-primary text-white">
         <div className="absolute inset-0 opacity-10">
-          <OptimizedImage src="/data-center-programmer-uses-node-tree-software-identify-equipment-issues.jpg" alt="Background" className="object-cover" />
+          <OptimizedImage 
+            src="/african-american-engineer-inspecting-interlinked-computers-creating-server-network-high-tech-facility-using-parallel-computing-perform-complex-calculations-process-large-amounts-data.jpg" 
+            alt="Enterprise Solutions Background" 
+            className="object-cover" 
+          />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -119,10 +123,22 @@ const OdooERP = () => {
               <div className="relative">
                 <div className="absolute -inset-4 bg-secondary/20 rounded-[3rem] blur-2xl" />
                 <OptimizedImage 
-                  src="/CyberPanel-409965283.webp" 
-                  alt="ERP Implementation" 
+                  src="/smiling-engineer-using-laptop-data-center-oversee-hardware.jpg" 
+                  alt="Odoo ERP Implementation" 
                   className="relative rounded-[2rem] shadow-2xl"
                 />
+              </div>
+              <div className="mt-8 p-6 bg-white rounded-3xl border border-secondary/20 shadow-lg relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+                  <Shield size={40} className="text-secondary" />
+                </div>
+                <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-secondary" />
+                  Note for Stakeholders
+                </h4>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Venihost specializes in the deployment and customization of the <strong>Odoo Community Version</strong>. This allows businesses to benefit from a powerful, open-source business suite with zero licensing fees, while focusing investment on high-value customizations and support.
+                </p>
               </div>
             </div>
             <div className="lg:w-1/2">

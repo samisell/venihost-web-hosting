@@ -49,7 +49,11 @@ const StudyAbroadCRM = () => {
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-primary text-white">
         <div className="absolute inset-0 opacity-10">
-          <OptimizedImage src="/african-american-engineer-inspecting-interlinked-computers-creating-server-network-high-tech-facility-using-parallel-computing-perform-complex-calculations-process-large-amounts-data.jpg" alt="Background" className="object-cover" />
+          <OptimizedImage 
+            src="/data-center-engineer-leverages-artificial-intelligence-visualization-tools.jpg" 
+            alt="Study Abroad Management Background" 
+            className="object-cover" 
+          />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -119,8 +123,8 @@ const StudyAbroadCRM = () => {
               <div className="relative">
                 <div className="absolute -inset-4 bg-secondary/20 rounded-[3rem] blur-2xl" />
                 <OptimizedImage 
-                  src="/samisell1.png" 
-                  alt="Consultancy" 
+                  src="/smiling-engineer-using-laptop-data-center-oversee-hardware.jpg" 
+                  alt="Student Management Dashboard" 
                   className="relative rounded-[2rem] shadow-2xl"
                 />
               </div>

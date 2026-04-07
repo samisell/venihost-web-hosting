@@ -28,10 +28,12 @@ import CloudVPSHosting from '@/src/pages/CloudVPSHosting';
 import CPanelVPSHosting from '@/src/pages/CPanelVPSHosting';
 import WindowsVPSHosting from '@/src/pages/WindowsVPSHosting';
 import StorageVPSHosting from '@/src/pages/StorageVPSHosting';
-import QboxEmailHosting from '@/src/pages/QboxEmailHosting';
+import VmailEmailHosting from '@/src/pages/VmailEmailHosting';
+import Blog from '@/src/pages/Blog';
+import BlogPostDetail from '@/src/pages/BlogPostDetail';
 import CookieConsent from '@/src/components/CookieConsent';
-
-const Blog = () => <div className="pt-32 pb-20 text-center"><h1>Blog Page</h1></div>;
+import FacebookPixel from '@/src/components/FacebookPixel';
+import GoogleAnalytics from '@/src/components/GoogleAnalytics';
 
 export default function App() {
   return (
@@ -51,6 +53,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPostDetail />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -67,11 +70,13 @@ export default function App() {
             <Route path="/cpanel-vps" element={<CPanelVPSHosting />} />
             <Route path="/windows-vps" element={<WindowsVPSHosting />} />
             <Route path="/storage-vps" element={<StorageVPSHosting />} />
-            <Route path="/qbox-email" element={<QboxEmailHosting />} />
+            <Route path="/vmail-email" element={<VmailEmailHosting />} />
           </Routes>
         </main>
         <Footer />
         <CookieConsent />
+        <FacebookPixel />
+        <GoogleAnalytics />
       </div>
     </Router>
   );

@@ -53,7 +53,7 @@ const Sitemap = () => {
         { name: "POS Software", path: "/pos-software" },
         { name: "Hotel Management", path: "/hotel-management" },
         { name: "Study Abroad CRM", path: "/study-abroad-crm" },
-        { name: "Qbox Business Email", path: "/qbox-email" },
+        { name: "Vmail Business Email", path: "/vmail-email" },
       ]
     },
     {

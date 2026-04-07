@@ -65,7 +65,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Enterprise</h4>
             <ul className="flex flex-col gap-4 text-slate-400 font-medium">
-              <li><Link to="/qbox-email" className="hover:text-secondary transition-colors">Qbox Email</Link></li>
+              <li><Link to="/vmail-email" className="hover:text-secondary transition-colors">Vmail Email</Link></li>
               <li><Link to="/study-abroad-crm" className="hover:text-secondary transition-colors">Study Abroad CRM</Link></li>
               <li><Link to="/hotel-management" className="hover:text-secondary transition-colors">Hotel Management</Link></li>
               <li><Link to="/odoo-erp" className="hover:text-secondary transition-colors">Odoo ERP</Link></li>

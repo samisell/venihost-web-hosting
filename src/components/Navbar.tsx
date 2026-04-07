@@ -46,7 +46,7 @@ const Navbar = () => {
         {
           category: 'Enterprise Solutions',
           items: [
-            { name: 'Qbox Email', path: '/qbox-email', icon: Mail, desc: 'Professional business email' },
+            { name: 'Vmail Email', path: '/vmail-email', icon: Mail, desc: 'Professional business email' },
             { name: 'Study Abroad CRM', path: '/study-abroad-crm', icon: GraduationCap, desc: 'Student management platform' },
             { name: 'Hotel Management', path: '/hotel-management', icon: Hotel, desc: 'Complete hospitality system' },
             { name: 'Odoo ERP', path: '/odoo-erp', icon: Briefcase, desc: 'Integrated business suite' },
