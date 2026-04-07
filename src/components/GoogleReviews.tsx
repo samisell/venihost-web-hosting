@@ -10,7 +10,7 @@ const reviews = [
     rating: 5,
     date: "2 months ago",
     text: "Venihost has been incredible for my e-commerce site. The speed is unmatched in Nigeria, and their support team actually knows what they're doing. Highly recommended!",
-    avatar: "/samisell1.png"
+    avatar: "https://i.pravatar.cc/150?u=oluwaseun"
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const reviews = [
     rating: 5,
     date: "1 month ago",
     text: "Switched from a popular international host and I'm not looking back. Local latency makes a huge difference for my users. 99.9% uptime is real.",
-    avatar: "/samisell1.png"
+    avatar: "https://i.pravatar.cc/150?u=chidi"
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const reviews = [
     rating: 5,
     date: "3 weeks ago",
     text: "The best hosting experience I've had. Setting up my WordPress site was a breeze with their one-click installer. Support is 24/7 as promised.",
-    avatar: "/samisell1.png"
+    avatar: "https://i.pravatar.cc/150?u=fatima"
   }
 ];
 

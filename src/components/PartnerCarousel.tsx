@@ -3,11 +3,11 @@ import { motion } from 'motion/react';
 import OptimizedImage from '@/src/components/OptimizedImage';
 
 const partners = [
-  { name: 'cPanel', logo: '/cPanel-logo.png' },
-  { name: 'Cloudflare', logo: '/Cloudflare-Logo.png' },
-  { name: 'Paystack', logo: '/Paystack-Logo.png' },
-  { name: 'Flutterwave', logo: '/Flutterwave-Logo.png' },
-  { name: 'Google', logo: '/Google-Logo.png' },
+  { name: 'cPanel', logo: '/partners/c-panel-logo-2165753515.png' },
+  { name: 'Cloudflare', logo: '/partners/Cloudflare-Logo.wine-3661517406.png' },
+  { name: 'Paystack', logo: '/partners/paystack-logo-vector-1389109400.png' },
+  { name: 'Flutterwave', logo: '/partners/Flutterwave-Logo-443786680.jpg' },
+  { name: 'Google', logo: '/partners/Google-logo-2015-1472812582.png' },
 ];
 
 const PartnerCarousel = () => {

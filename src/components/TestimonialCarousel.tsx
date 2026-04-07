@@ -19,7 +19,7 @@ const testimonials: Testimonial[] = [
     name: "Folakemi Onadara",
     role: "Firstcoast Enterprise",
     content: "Venihost has been a game-changer for our business. The website loads incredibly fast, and we haven't experienced a single minute of downtime. Their support team responds quickly and resolves issues without stress. Highly recommend!",
-    avatar: "/samisell1.png",
+    avatar: "https://i.pravatar.cc/150?u=folakemi",
     rating: 5
   },
   {
@@ -27,7 +27,7 @@ const testimonials: Testimonial[] = [
     name: "Rhema Travels",
     role: "Travel & Tourism Agency",
     content: "Since switching to Venihost, our travel booking website has never been more reliable. The uptime is excellent, the cPanel is easy to use, and the team is always ready to help. Our clients can now book trips without any interruptions.",
-    avatar: "/samisell1.png",
+    avatar: "https://i.pravatar.cc/150?u=rhema",
     rating: 5
   },
   {
@@ -35,7 +35,7 @@ const testimonials: Testimonial[] = [
     name: "Gbenga",
     role: "Snowball Media",
     content: "As a media company, we need hosting that is fast and dependable. Venihost delivered exactly that. Our website handles heavy traffic with ease, the loading speed is impressive, and their customer service is second to none in Nigeria.",
-    avatar: "/samisell1.png",
+    avatar: "https://i.pravatar.cc/150?u=gbenga",
     rating: 5
   },
   {
@@ -43,7 +43,7 @@ const testimonials: Testimonial[] = [
     name: "Vivian",
     role: "Kadiv Event",
     content: "Venihost has made managing our event website so much easier. The hosting is stable, the SSL certificate was set up for free, and every time we've had a question their team has been right there to help. I wouldn't host with anyone else.",
-    avatar: "/samisell1.png",
+    avatar: "https://i.pravatar.cc/150?u=vivian",
     rating: 5
   }
 ];
