@@ -162,9 +162,7 @@ const Navbar = () => {
               Login
             </a>
             <a 
-              href="https://app.venihost.com.ng/cart.php?gid=shared-hosting" 
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/cpanel-hosting" 
               className="bg-secondary text-white px-6 py-2.5 rounded-full font-semibold shadow-lg shadow-secondary/20 hover:bg-secondary/90 transition-all hover:scale-105 active:scale-95"
             >
               Get Started
@@ -236,9 +234,7 @@ const Navbar = () => {
                   Login
                 </a>
                 <a 
-                  href="https://app.venihost.com.ng/cart.php?gid=shared-hosting" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/cpanel-hosting" 
                   className="w-full text-center py-3 rounded-xl bg-secondary text-white font-semibold shadow-lg shadow-secondary/20"
                 >
                   Get Started

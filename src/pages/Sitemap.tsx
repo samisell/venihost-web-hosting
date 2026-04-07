@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ChevronRight, Globe, Server, Cloud, Shield, Info, Mail, HelpCircle, FileText, Layout } from 'lucide-react';
+import { ChevronRight, Globe, Server, Cloud, Shield, Info, Mail, HelpCircle, FileText, Layout, Briefcase } from 'lucide-react';
 import OptimizedImage from '@/src/components/OptimizedImage';
 
 import SEO from '@/src/components/SEO';
@@ -13,6 +13,7 @@ const Sitemap = () => {
       icon: Layout,
       links: [
         { name: "Home", path: "/" },
+        { name: "Our Businesses", path: "/our-businesses" },
         { name: "Pricing", path: "/pricing" },
         { name: "About Us", path: "/about" },
         { name: "Contact Us", path: "/contact" },
@@ -21,25 +22,42 @@ const Sitemap = () => {
       ]
     },
     {
-      title: "Hosting Services",
+      title: "Web Hosting",
       icon: Server,
       links: [
+        { name: "cPanel Hosting", path: "/cpanel-hosting" },
         { name: "Shared Hosting", path: "/shared-hosting" },
-        { name: "VPS Hosting", path: "/vps-hosting" },
+        { name: "WordPress Hosting", path: "/wordpress-hosting" },
+        { name: "Django Hosting", path: "/django-hosting" },
         { name: "Cloud Hosting", path: "/cloud-hosting" },
         { name: "Dedicated Servers", path: "/dedicated-servers" },
       ]
     },
     {
-      title: "Domains",
-      icon: Globe,
+      title: "VPS & Infrastructure",
+      icon: Cloud,
       links: [
+        { name: "Cloud VPS", path: "/cloud-vps" },
+        { name: "cPanel VPS", path: "/cpanel-vps" },
+        { name: "Windows VPS", path: "/windows-vps" },
+        { name: "Storage VPS", path: "/storage-vps" },
+        { name: "Standard VPS", path: "/vps-hosting" },
         { name: "Domain Registration", path: "/domains" },
-        { name: "Domain Transfer", path: "/domains" },
       ]
     },
     {
-      title: "Legal",
+      title: "Enterprise Solutions",
+      icon: Briefcase,
+      links: [
+        { name: "Odoo ERP", path: "/odoo-erp" },
+        { name: "POS Software", path: "/pos-software" },
+        { name: "Hotel Management", path: "/hotel-management" },
+        { name: "Study Abroad CRM", path: "/study-abroad-crm" },
+        { name: "Qbox Business Email", path: "/qbox-email" },
+      ]
+    },
+    {
+      title: "Legal Information",
       icon: Shield,
       links: [
         { name: "Terms of Service", path: "/terms-of-service" },

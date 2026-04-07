@@ -15,6 +15,21 @@ const WordPressHosting = () => {
     Business: { '1yr': '₦3,200', '2yr': '₦3,100', '3yr': '₦3,000' }
   };
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Managed WordPress Hosting",
+    "description": "Ultra-fast WordPress hosting with LiteSpeed Cache, NVMe storage, and expert WordPress support.",
+    "brand": { "@type": "Brand", "name": "Venihost" },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "NGN",
+      "lowPrice": "500",
+      "highPrice": "3200",
+      "offerCount": "3"
+    }
+  };
+
   const plans = [
     {
       name: "WordPress Starter",
@@ -49,6 +64,7 @@ const WordPressHosting = () => {
         title="Managed WordPress Hosting | Ultra-Fast WP Performance"
         description="Premium Managed WordPress hosting in Nigeria. Optimized for speed with LiteSpeed Cache, NVMe storage, and expert WordPress support."
         keywords="managed wordpress hosting nigeria, fast wordpress hosting, wp hosting litespeed, affordable wordpress hosting"
+        structuredData={structuredData}
       />
       {/* Hero */}
       <section className="bg-primary text-white py-24 relative overflow-hidden">

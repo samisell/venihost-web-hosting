@@ -16,33 +16,33 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Olawale Johnson",
-    role: "E-commerce Entrepreneur",
-    content: "Venihost has been a game-changer for my online store. The loading speeds are incredible, and I haven't experienced a single minute of downtime in over a year. Their support team is top-notch!",
+    name: "Folakemi Onadara",
+    role: "Firstcoast Enterprise",
+    content: "Venihost has been a game-changer for our business. The website loads incredibly fast, and we haven't experienced a single minute of downtime. Their support team responds quickly and resolves issues without stress. Highly recommend!",
     avatar: "/samisell1.png",
     rating: 5
   },
   {
     id: 2,
-    name: "Chidi Okafor",
-    role: "Tech Blogger",
-    content: "As a blogger, speed is everything. Venihost's NVMe storage makes my WordPress site fly. The migration process was seamless and handled entirely by their experts. Highly recommended!",
+    name: "Rhema Travels",
+    role: "Travel & Tourism Agency",
+    content: "Since switching to Venihost, our travel booking website has never been more reliable. The uptime is excellent, the cPanel is easy to use, and the team is always ready to help. Our clients can now book trips without any interruptions.",
     avatar: "/samisell1.png",
     rating: 5
   },
   {
     id: 3,
-    name: "Aisha Bello",
-    role: "Creative Director",
-    content: "I've tried several hosting providers in Nigeria, but Venihost stands out for their reliability and local payment options. The cPanel interface is fast and the security features give me peace of mind.",
+    name: "Gbenga",
+    role: "Snowball Media",
+    content: "As a media company, we need hosting that is fast and dependable. Venihost delivered exactly that. Our website handles heavy traffic with ease, the loading speed is impressive, and their customer service is second to none in Nigeria.",
     avatar: "/samisell1.png",
     rating: 5
   },
   {
     id: 4,
-    name: "Tunde Williams",
-    role: "Software Developer",
-    content: "The VPS hosting from Venihost is robust and highly scalable. I love the root access and the ability to choose my OS. It's the perfect environment for my development projects.",
+    name: "Vivian",
+    role: "Kadiv Event",
+    content: "Venihost has made managing our event website so much easier. The hosting is stable, the SSL certificate was set up for free, and every time we've had a question their team has been right there to help. I wouldn't host with anyone else.",
     avatar: "/samisell1.png",
     rating: 5
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Shield, Zap, Clock, Headphones, Globe, Server, Cloud, Cpu, CheckCircle2 } from 'lucide-react';
 import FeatureCard from '@/src/components/FeatureCard';
@@ -16,15 +16,39 @@ import PromoPopup from '@/src/components/PromoPopup';
 const Home = () => {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Venihost Web Hosting",
-    "url": "https://venihost.com",
-    "description": "Fast, Secure & Reliable Web Hosting in Nigeria. Shared, VPS, Cloud, and Dedicated Servers.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://venihost.com/domains?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Venihost Web Hosting",
+        "url": "https://venihost.com.ng",
+        "description": "Fast, Secure & Reliable Web Hosting in Nigeria. Shared, VPS, Cloud, and Dedicated Servers.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://venihost.com.ng/domains?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "Venihost",
+        "url": "https://venihost.com.ng",
+        "logo": "https://venihost.com.ng/logo.png",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+234-811-685-6186",
+            "contactType": "customer service",
+            "areaServed": "NG",
+            "availableLanguage": "en"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/share/18PRvzvweS/?mibextid=wwXIfr",
+          "https://x.com/venihost",
+          "https://www.instagram.com/venihost"
+        ]
+      }
+    ]
   };
 
   const features = [
@@ -85,67 +109,69 @@ const Home = () => {
     }
   ];
 
+  const [billingCycle, setBillingCycle] = useState<'1yr' | '2yr' | '3yr'>('3yr');
+
+  const cpanelPricing = {
+    Economy:      { '1yr': '₦1,400', '2yr': '₦1,300', '3yr': '₦1,200' },
+    Deluxe:       { '1yr': '₦6,400', '2yr': '₦6,000', '3yr': '₦5,800' },
+    Ultimate:     { '1yr': '₦9,350', '2yr': '₦9,350', '3yr': '₦9,200' },
+  };
+
   const plans = [
     {
-      name: "Starter Plan",
-      price: "₦1,500",
+      name: "cPanel Economy",
+      price: cpanelPricing.Economy[billingCycle],
       period: "mo",
-      description: "Great for personal projects & blogs",
-      features: [
-        "1 Website",
-        "10GB NVMe SSD Storage",
-        "100GB Bandwidth",
-        "2 Email Accounts",
-        "2 MySQL Databases",
-        "Free SSL Certificate",
-        "LiteSpeed Web Server",
-        "cPanel Control Panel",
-        "99.9% Uptime Guarantee",
-        "Softaculous Installer"
-      ],
-      ctaLink: "https://app.venihost.com.ng/cart.php?pid=1"
-    },
-    {
-      name: "Professional Plan",
-      price: "₦3,500",
-      period: "mo",
-      description: "Best for small businesses & startups",
+      description: "Easy-to-use cPanel for starters",
       features: [
         "10 Websites",
-        "50GB NVMe SSD Storage",
+        "30GB SSD Storage",
         "Unlimited Bandwidth",
-        "20 Email Accounts",
-        "20 MySQL Databases",
+        "Unlimited Emails & Databases",
         "Free SSL Certificate",
-        "Free Domain (.com.ng)",
-        "LiteSpeed + LSCache",
-        "Daily Backups",
-        "Priority Support",
-        "Free Website Migration"
+        "Weekly Automated Backups",
+        "Node.js / Python Support",
+        "1-Click WordPress Install",
+        "99.9% Uptime Guarantee"
       ],
-      isPopular: true,
-      ctaLink: "https://app.venihost.com.ng/cart.php?pid=2"
+      ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=66"
     },
     {
-      name: "Business Plan",
-      price: "₦7,500",
+      name: "cPanel Deluxe",
+      price: cpanelPricing.Deluxe[billingCycle],
       period: "mo",
-      description: "For high-traffic & enterprise sites",
+      description: "Our most popular cPanel plan",
+      features: [
+        "30 Websites",
+        "50GB SSD Storage",
+        "Unlimited Bandwidth",
+        "Unlimited Emails & Databases",
+        "Free .com.ng Domain (1 Year)",
+        "Daily Automated Backups",
+        "Imunify360 Security",
+        "Git Version Control",
+        "Priority Support"
+      ],
+      isPopular: true,
+      ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=70"
+    },
+    {
+      name: "cPanel Ultimate",
+      price: cpanelPricing.Ultimate[billingCycle],
+      period: "mo",
+      description: "Maximum power for enterprises",
       features: [
         "Unlimited Websites",
-        "Unlimited NVMe SSD Storage",
+        "Unlimited SSD Storage",
         "Unlimited Bandwidth",
-        "Unlimited Email Accounts",
-        "Unlimited MySQL Databases",
-        "Free SSL Certificate",
-        "Free Domain (.com)",
-        "LiteSpeed + LSCache",
-        "Daily Backups (Offsite)",
-        "24/7 VIP Priority Support",
-        "Free Website Migration",
-        "Dedicated IP (Optional)"
+        "Unlimited Emails & Databases",
+        "Free .com.ng Domain (1 Year)",
+        "Daily Premium Backups",
+        "Imunify360 Pro Security",
+        "Node.js Premium Deployment",
+        "24/7 VIP Priority Support"
       ],
-      ctaLink: "https://app.venihost.com.ng/cart.php?pid=3"
+      ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=62"
     }
   ];
 
@@ -195,9 +221,7 @@ const Home = () => {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <a 
-                  href="https://app.venihost.com.ng/cart.php?gid=shared-hosting" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/cpanel-hosting" 
                   className="w-full sm:w-auto px-8 py-4 bg-secondary text-white rounded-full font-bold text-lg shadow-xl shadow-secondary/20 hover:bg-secondary/90 transition-all hover:scale-105"
                 >
                   Get Started Now
@@ -403,24 +427,40 @@ const Home = () => {
       {/* Pricing Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-extrabold text-primary mb-6">Simple, Transparent Pricing</h2>
-            <p className="text-lg text-slate-600">
-              No hidden fees. No surprises. Choose the plan that works best for you and your budget.
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <h2 className="text-4xl font-extrabold text-primary mb-4">cPanel Hosting Plans</h2>
+            <p className="text-lg text-slate-600 mb-8">
+              Industry-standard cPanel hosting. No hidden fees. Pick your term and get started today.
             </p>
+            {/* Billing Toggle */}
+            <div className="inline-flex items-center p-1.5 bg-slate-100 rounded-2xl shadow-inner gap-1">
+              {(['1yr', '2yr', '3yr'] as const).map((cycle) => (
+                <button
+                  key={cycle}
+                  onClick={() => setBillingCycle(cycle)}
+                  className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${
+                    billingCycle === cycle
+                      ? 'bg-secondary text-white shadow-md'
+                      : 'text-slate-500 hover:text-primary'
+                  }`}
+                >
+                  {cycle === '1yr' ? '1 Year' : cycle === '2yr' ? '2 Years' : '3 Years'}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
-              <PricingCard key={index} {...plan} delay={index * 0.1} />
+              <PricingCard key={`${index}-${billingCycle}`} {...plan} delay={index * 0.1} />
             ))}
           </div>
-          
-          <div className="mt-20 max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold text-primary mb-4">Detailed Plan Comparison</h3>
-              <p className="text-slate-600">Compare every technical detail to find your perfect fit.</p>
-            </div>
-            <PricingComparisonTable />
+          <p className="text-center text-slate-400 text-sm mt-8">
+            All plans powered by <strong className="text-primary">cPanel</strong> · Prices in Nigerian Naira (₦) · Billed per selected term
+          </p>
+          <div className="mt-16 text-center">
+            <a href="/cpanel-hosting" className="inline-flex items-center gap-2 text-secondary font-bold text-lg hover:gap-4 transition-all">
+              View Full cPanel Plan Details <ArrowRight size={20} />
+            </a>
           </div>
         </div>
       </section>

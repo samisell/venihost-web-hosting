@@ -15,6 +15,21 @@ const CPanelHosting = () => {
     Business: { '1yr': '₦9,350', '2yr': '₦9,350', '3yr': '₦9,200' }
   };
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Premium cPanel Web Hosting",
+    "description": "Premium cPanel hosting in Nigeria with NVMe SSD storage, unlimited bandwidth, and premium security.",
+    "brand": { "@type": "Brand", "name": "Venihost" },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "NGN",
+      "lowPrice": "1200",
+      "highPrice": "9350",
+      "offerCount": "3"
+    }
+  };
+
   const plans = [
     {
       name: "cPanel Economy",
@@ -49,6 +64,7 @@ const CPanelHosting = () => {
         title="cPanel Web Hosting | The Industry Standard"
         description="Premium cPanel hosting in Nigeria. Manage your website easily with the world's most popular control panel. Includes free SSL and daily backups."
         keywords="cpanel hosting nigeria, cheap cpanel hosting, managed web hosting, cpanel africa"
+        structuredData={structuredData}
       />
       {/* Hero */}
       <section className="bg-primary text-white py-24 relative overflow-hidden">
