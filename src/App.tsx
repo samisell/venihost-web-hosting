@@ -31,6 +31,7 @@ import StorageVPSHosting from '@/src/pages/StorageVPSHosting';
 import VmailEmailHosting from '@/src/pages/VmailEmailHosting';
 import Blog from '@/src/pages/Blog';
 import BlogPostDetail from '@/src/pages/BlogPostDetail';
+import NotFound from '@/src/pages/NotFound';
 import CookieConsent from '@/src/components/CookieConsent';
 import FacebookPixel from '@/src/components/FacebookPixel';
 import GoogleAnalytics from '@/src/components/GoogleAnalytics';
@@ -71,6 +72,7 @@ export default function App() {
             <Route path="/windows-vps" element={<WindowsVPSHosting />} />
             <Route path="/storage-vps" element={<StorageVPSHosting />} />
             <Route path="/vmail-email" element={<VmailEmailHosting />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

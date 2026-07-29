@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Cloud, Server, Cpu, Globe, Phone, Briefcase, Hotel, ShoppingCart, GraduationCap, Mail, Zap, Code, Layout, Database } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -8,6 +8,8 @@ import OptimizedImage from '@/src/components/OptimizedImage';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -17,6 +19,23 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close services menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+    setServicesOpen(false);
+  }, [location.pathname]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -88,11 +107,84 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <div key={link.name} className="relative group">
+              <div key={link.name} className="relative">
                 {link.megaMenu ? (
-                  <button className="flex items-center gap-1 font-medium text-primary/80 hover:text-secondary transition-colors py-2">
-                    {link.name} <ChevronDown size={16} />
-                  </button>
+                  <div
+                    ref={servicesRef}
+                    onMouseEnter={() => setServicesOpen(true)}
+                    onMouseLeave={() => setServicesOpen(false)}
+                  >
+                    <button
+                      className="flex items-center gap-1 font-medium text-primary/80 hover:text-secondary transition-colors py-2"
+                      onClick={() => setServicesOpen((v) => !v)}
+                    >
+                      {link.name}
+                      <ChevronDown
+                        size={16}
+                        className={cn('transition-transform duration-200', servicesOpen && 'rotate-180')}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {servicesOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.18 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-screen max-w-5xl bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden"
+                          style={{ paddingTop: '8px' }}
+                        >
+                          {/* Invisible bridge so the mouse can travel from button → menu */}
+                          <div className="absolute -top-2 left-0 right-0 h-2" />
+                          <div className="grid grid-cols-3 gap-8 p-10">
+                            {link.megaMenu.map((cat) => (
+                              <div key={cat.category}>
+                                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 px-3">{cat.category}</h4>
+                                <div className="flex flex-col gap-2">
+                                  {cat.items.map((item) => (
+                                    <Link
+                                      key={item.name}
+                                      to={item.path}
+                                      onClick={() => setServicesOpen(false)}
+                                      className="flex items-start gap-4 p-3 rounded-2xl hover:bg-slate-50 transition-all group/item"
+                                    >
+                                      <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary group-hover/item:bg-secondary group-hover/item:text-white transition-colors shrink-0">
+                                        <item.icon size={20} />
+                                      </div>
+                                      <div className="flex flex-col">
+                                        <span className="text-sm font-bold text-primary">{item.name}</span>
+                                        <span className="text-xs text-slate-500 mt-0.5">{item.desc}</span>
+                                      </div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="bg-slate-50 p-6 flex items-center justify-between border-t border-slate-100">
+                              <div className="flex items-center gap-6">
+                                  <div className="flex items-center gap-2 text-primary font-medium text-sm">
+                                      <Phone size={16} className="text-secondary" />
+                                      <span>Support: +234 811 685 6186</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-primary font-medium text-sm">
+                                      <Mail size={16} className="text-secondary" />
+                                      <span>hello@venihost.com.ng</span>
+                                  </div>
+                              </div>
+                              <Link
+                                to="/pricing"
+                                onClick={() => setServicesOpen(false)}
+                                className="text-secondary font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all"
+                              >
+                                  View all pricing <X size={14} className="rotate-45" />
+                              </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 ) : (
                   <Link 
                     to={link.path} 
@@ -103,50 +195,6 @@ const Navbar = () => {
                   >
                     {link.name}
                   </Link>
-                )}
-
-                {link.megaMenu && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-5xl bg-white rounded-3xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 overflow-hidden">
-                    <div className="grid grid-cols-3 gap-8 p-10">
-                      {link.megaMenu.map((cat) => (
-                        <div key={cat.category}>
-                          <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 px-3">{cat.category}</h4>
-                          <div className="flex flex-col gap-2">
-                            {cat.items.map((item) => (
-                              <Link
-                                key={item.name}
-                                to={item.path}
-                                className="flex items-start gap-4 p-3 rounded-2xl hover:bg-slate-50 transition-all group/item"
-                              >
-                                <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary group-hover/item:bg-secondary group-hover/item:text-white transition-colors shrink-0">
-                                  <item.icon size={20} />
-                                </div>
-                                <div className="flex flex-col">
-                                  <span className="text-sm font-bold text-primary">{item.name}</span>
-                                  <span className="text-xs text-slate-500 mt-0.5">{item.desc}</span>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="bg-slate-50 p-6 flex items-center justify-between border-t border-slate-100">
-                        <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                                <Phone size={16} className="text-secondary" />
-                                <span>Support: +234 811 685 6186</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                                <Mail size={16} className="text-secondary" />
-                                <span>hello@venihost.com.ng</span>
-                            </div>
-                        </div>
-                        <Link to="/pricing" className="text-secondary font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                            View all pricing <X size={14} className="rotate-45" />
-                        </Link>
-                    </div>
-                  </div>
                 )}
               </div>
             ))}
