@@ -16,7 +16,7 @@ const businesses = [
     image: '/servers-delivering-web-content.jpg',
     features: ['Unlimited Data', 'Low Latency', '24/7 Monitoring', 'Quick Installation'],
     color: 'bg-blue-600',
-    link: '#'
+    link: 'https://www.spellnet.ng'
   },
   {
     id: 'venihub',
@@ -149,6 +149,8 @@ const OurBusinesses = () => {
 
                     <a
                       href={biz.link}
+                      target={biz.link !== '#' ? '_blank' : undefined}
+                      rel={biz.link !== '#' ? 'noopener noreferrer' : undefined}
                       className={cn(
                         "inline-flex items-center gap-3 px-8 py-4 rounded-xl text-white font-bold transition-all shadow-xl hover:scale-105 active:scale-95",
                         biz.color
