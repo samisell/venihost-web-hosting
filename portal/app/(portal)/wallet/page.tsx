@@ -2,16 +2,24 @@
 
 import { useState } from "react";
 import { Wallet as WalletIcon, CreditCard, ArrowUpRight, ArrowDownRight, History } from "lucide-react";
-
-const transactions = [
-  { id: 1, type: "deposit", amount: "₦50,000", date: "2026-07-28", description: "Paystack Deposit", status: "Completed" },
-  { id: 2, type: "payment", amount: "₦15,000", date: "2026-07-28", description: "Invoice #1042 Payment", status: "Completed" },
-  { id: 3, type: "deposit", amount: "₦10,000", date: "2026-06-15", description: "Flutterwave Deposit", status: "Completed" },
-];
+import { useQuery } from "@tanstack/react-query";
 
 export default function WalletPage() {
   const [addFundsMode, setAddFundsMode] = useState(false);
   const [amount, setAmount] = useState("");
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["wallet"],
+    queryFn: async () => {
+      const res = await fetch("/api/wallet");
+      if (!res.ok) throw new Error("Failed to fetch wallet");
+      return res.json();
+    }
+  });
+
+  const balance = data?.balance || "0.00";
+  // WHMCS returns transactions in data.transactions.transactions.transaction array
+  const transactions = data?.transactions?.transactions?.transaction || [];
 
   return (
     <div className="space-y-6 max-w-5xl">
@@ -30,7 +38,9 @@ export default function WalletPage() {
           </div>
           <div className="relative z-10">
             <h2 className="text-sm font-medium text-slate-300">Available Balance</h2>
-            <p className="mt-2 text-4xl font-bold">₦35,000.00</p>
+            <p className="mt-2 text-4xl font-bold">
+              {isLoading ? "..." : `₦${balance}`}
+            </p>
             <div className="mt-8">
               <button 
                 onClick={() => setAddFundsMode(!addFundsMode)}
@@ -79,37 +89,52 @@ export default function WalletPage() {
       </div>
 
       {/* Transaction History */}
-      <div className="bg-white shadow-sm ring-1 ring-gray-200 rounded-xl overflow-hidden mt-8">
+      <div className="bg-white shadow-sm ring-1 ring-gray-200 rounded-xl overflow-hidden mt-8 min-h-[200px]">
         <div className="border-b border-gray-200 bg-gray-50 px-6 py-4 flex items-center gap-2">
           <History className="h-5 w-5 text-gray-400" />
           <h2 className="text-base font-semibold text-gray-900">Recent Transactions</h2>
         </div>
-        <ul role="list" className="divide-y divide-gray-100">
-          {transactions.map((tx) => (
-            <li key={tx.id} className="p-6 hover:bg-gray-50 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-x-4">
-                  <div className={`p-2 rounded-full ${tx.type === 'deposit' ? 'bg-green-100' : 'bg-red-100'}`}>
-                    {tx.type === 'deposit' ? (
-                      <ArrowDownRight className="h-5 w-5 text-green-600" />
-                    ) : (
-                      <ArrowUpRight className="h-5 w-5 text-red-600" />
-                    )}
+        
+        {isLoading ? (
+          <div className="flex items-center justify-center h-32 text-gray-400">Loading transactions...</div>
+        ) : error ? (
+          <div className="flex items-center justify-center h-32 text-red-500">Error loading transactions.</div>
+        ) : (
+          <ul role="list" className="divide-y divide-gray-100">
+            {transactions.map((tx: any) => {
+              const isDeposit = parseFloat(tx.amountin) > 0;
+              return (
+                <li key={tx.id} className="p-6 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-x-4">
+                      <div className={`p-2 rounded-full ${isDeposit ? 'bg-green-100' : 'bg-red-100'}`}>
+                        {isDeposit ? (
+                          <ArrowDownRight className="h-5 w-5 text-green-600" />
+                        ) : (
+                          <ArrowUpRight className="h-5 w-5 text-red-600" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold leading-6 text-gray-900">{tx.description}</p>
+                        <p className="text-xs text-gray-500">{tx.date} • {tx.gateway || 'System'}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-x-4">
+                      <p className={`text-sm font-bold ${isDeposit ? 'text-green-600' : 'text-gray-900'}`}>
+                        {isDeposit ? '+' : '-'}{isDeposit ? tx.amountin : tx.amountout}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold leading-6 text-gray-900">{tx.description}</p>
-                    <p className="text-xs text-gray-500">{tx.date} • {tx.status}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-x-4">
-                  <p className={`text-sm font-bold ${tx.type === 'deposit' ? 'text-green-600' : 'text-gray-900'}`}>
-                    {tx.type === 'deposit' ? '+' : '-'}{tx.amount}
-                  </p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+                </li>
+              );
+            })}
+            {transactions.length === 0 && (
+              <li className="p-8 text-center text-gray-500">
+                No transactions found.
+              </li>
+            )}
+          </ul>
+        )}
       </div>
     </div>
   );

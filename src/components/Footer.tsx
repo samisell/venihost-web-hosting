@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Cloud } from 'lucide-react';
 import OptimizedImage from '@/src/components/OptimizedImage';
+import { getPortalLoginUrl, getPortalRegisterUrl } from '@/src/lib/whmcs';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -81,6 +82,8 @@ const Footer = () => {
               <li><Link to="/contact" className="hover:text-secondary transition-colors">Contact</Link></li>
               <li><Link to="/faq" className="hover:text-secondary transition-colors">Support FAQ</Link></li>
               <li><Link to="/blog" className="hover:text-secondary transition-colors">Latest News</Link></li>
+              <li><a href={getPortalLoginUrl()} className="hover:text-secondary transition-colors">Client Login</a></li>
+              <li><a href={getPortalRegisterUrl()} className="hover:text-secondary transition-colors">Create Account</a></li>
             </ul>
           </div>
         </div>

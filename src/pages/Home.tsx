@@ -7,11 +7,11 @@ import PricingComparisonTable from '@/src/components/PricingComparisonTable';
 import PartnerCarousel from '@/src/components/PartnerCarousel';
 import GoogleReviews from '@/src/components/GoogleReviews';
 import OptimizedImage from '@/src/components/OptimizedImage';
-
 import TestimonialCarousel from '@/src/components/TestimonialCarousel';
-
 import SEO from '@/src/components/SEO';
 import PromoPopup from '@/src/components/PromoPopup';
+import { useWhmcsProducts, PRODUCT_PIDS, getCartUrl } from '@/src/lib/whmcsProducts';
+import { getPortalLoginUrl } from '@/src/lib/whmcs';
 
 const Home = () => {
   const structuredData = {
@@ -110,17 +110,28 @@ const Home = () => {
   ];
 
   const [billingCycle, setBillingCycle] = useState<'1yr' | '2yr' | '3yr'>('3yr');
+  const { getPrice, getName, loading: pricesLoading } = useWhmcsProducts();
 
-  const cpanelPricing = {
-    Economy:      { '1yr': '₦1,400', '2yr': '₦1,300', '3yr': '₦1,200' },
-    Deluxe:       { '1yr': '₦6,400', '2yr': '₦6,000', '3yr': '₦5,800' },
-    Ultimate:     { '1yr': '₦9,350', '2yr': '₦9,350', '3yr': '₦9,200' },
+  // Billing cycle map: our UI labels → WHMCS pricing keys
+  const cycleMap: Record<string, 'monthly' | 'annually' | 'biennially' | 'triennially'> = {
+    '1yr': 'annually',
+    '2yr': 'biennially',
+    '3yr': 'triennially',
   };
+
+  // Fallback prices if WHMCS is unavailable
+  const fallback = {
+    economy:  { '1yr': '₦1,400', '2yr': '₦1,300', '3yr': '₦1,200' },
+    deluxe:   { '1yr': '₦6,400', '2yr': '₦6,000', '3yr': '₦5,800' },
+    ultimate: { '1yr': '₦9,350', '2yr': '₦9,350', '3yr': '₦9,200' },
+  };
+
+  const lp = (pid: number, fb: string) => getPrice(pid, cycleMap[billingCycle]) || fb;
 
   const plans = [
     {
-      name: "cPanel Economy",
-      price: cpanelPricing.Economy[billingCycle],
+      name: getName(PRODUCT_PIDS.CPANEL_ECONOMY) || "cPanel Economy",
+      price: lp(PRODUCT_PIDS.CPANEL_ECONOMY, fallback.economy[billingCycle]),
       period: "mo",
       description: "Easy-to-use cPanel for starters",
       features: [
@@ -134,11 +145,11 @@ const Home = () => {
         "1-Click WordPress Install",
         "99.9% Uptime Guarantee"
       ],
-      ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=66"
+      ctaLink: getCartUrl(PRODUCT_PIDS.CPANEL_ECONOMY)
     },
     {
-      name: "cPanel Deluxe",
-      price: cpanelPricing.Deluxe[billingCycle],
+      name: getName(PRODUCT_PIDS.CPANEL_DELUXE) || "cPanel Deluxe",
+      price: lp(PRODUCT_PIDS.CPANEL_DELUXE, fallback.deluxe[billingCycle]),
       period: "mo",
       description: "Our most popular cPanel plan",
       features: [
@@ -153,11 +164,11 @@ const Home = () => {
         "Priority Support"
       ],
       isPopular: true,
-      ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=70"
+      ctaLink: getCartUrl(PRODUCT_PIDS.CPANEL_DELUXE)
     },
     {
-      name: "cPanel Ultimate",
-      price: cpanelPricing.Ultimate[billingCycle],
+      name: getName(PRODUCT_PIDS.CPANEL_ULTIMATE) || "cPanel Ultimate",
+      price: lp(PRODUCT_PIDS.CPANEL_ULTIMATE, fallback.ultimate[billingCycle]),
       period: "mo",
       description: "Maximum power for enterprises",
       features: [
@@ -171,7 +182,7 @@ const Home = () => {
         "Node.js Premium Deployment",
         "24/7 VIP Priority Support"
       ],
-      ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=62"
+      ctaLink: getCartUrl(PRODUCT_PIDS.CPANEL_ULTIMATE)
     }
   ];
 

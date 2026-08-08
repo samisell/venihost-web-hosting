@@ -17,12 +17,15 @@ import {
   UserCircle,
   Shield,
   Settings,
-  ChevronLeft
+  ChevronLeft,
+  ShoppingCart,
+  ExternalLink
 } from "lucide-react";
 import clsx from "clsx";
 
 const navItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Order Services", href: "/order", icon: ShoppingCart },
   { name: "Hosting", href: "/hosting", icon: Server },
   { name: "Domains", href: "/domains", icon: Globe },
   { name: "VPS & Servers", href: "/vps", icon: HardDrive },
@@ -90,6 +93,29 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Back to Website */}
+      <div className="border-t border-slate-800 p-3">
+        <a
+          href={process.env.NEXT_PUBLIC_WEBSITE_URL || "https://venihost.com.ng"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={clsx(
+            "group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors text-slate-400 hover:bg-slate-800 hover:text-white",
+            !sidebarOpen && "lg:justify-start justify-center"
+          )}
+        >
+          <ExternalLink
+            className={clsx(
+              "h-5 w-5 shrink-0 text-slate-400 group-hover:text-white",
+              sidebarOpen ? "mr-3" : "lg:mr-3 mr-0"
+            )}
+          />
+          <span className={clsx(!sidebarOpen && "lg:block hidden")}>
+            Back to Website
+          </span>
+        </a>
+      </div>
     </aside>
   );
 }
