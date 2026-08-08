@@ -4,12 +4,16 @@ import { Check, ArrowRight, Server, Cpu, Cloud, Globe, Zap, Mail, Terminal, Data
 import PricingCard from '@/src/components/PricingCard';
 import OptimizedImage from '@/src/components/OptimizedImage';
 import { cn } from '@/src/lib/utils';
-
 import SEO from '@/src/components/SEO';
+import { useWhmcsProducts, PRODUCT_PIDS, getCartUrl } from '@/src/lib/whmcsProducts';
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = React.useState<'monthly' | 'yearly'>('monthly');
   const [activeCategory, setActiveCategory] = React.useState('shared');
+  const { getPrice, getName, loading } = useWhmcsProducts();
+
+  const lp = (pid: number, fallback: string) => getPrice(pid, 'monthly') || fallback;
+  const ln = (pid: number, fallback: string) => getName(pid) || fallback;
 
   const categories = [
     { id: 'shared', name: 'Shared/cPanel', icon: Globe },
@@ -21,111 +25,111 @@ const Pricing = () => {
   const pricingData: Record<string, any[]> = {
     shared: [
       {
-        name: "cPanel Economy",
-        price: "₦1,500",
+        name: ln(PRODUCT_PIDS.CPANEL_ECONOMY, "cPanel Economy"),
+        price: lp(PRODUCT_PIDS.CPANEL_ECONOMY, "₦1,500"),
         period: "mo",
         description: "Perfect for beginners",
         features: ["1 Website", "15GB Storage", "Unlimited Bandwidth", "Free SSL", "cPanel Panel"],
-        ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=66"
+        ctaLink: getCartUrl(PRODUCT_PIDS.CPANEL_ECONOMY)
       },
       {
-        name: "WP Starter",
-        price: "₦700",
+        name: ln(PRODUCT_PIDS.WP_STARTER, "WP Starter"),
+        price: lp(PRODUCT_PIDS.WP_STARTER, "₦700"),
         period: "mo",
         description: "Litespeed performance",
         features: ["1 Website", "10GB NVMe Storage", "Unlimited Bandwidth", "LSCache Included", "Managed WordPress"],
-        ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=67",
+        ctaLink: getCartUrl(PRODUCT_PIDS.WP_STARTER),
         isPopular: true
       },
       {
-        name: "Shared Pro",
-        price: "₦3,500",
+        name: ln(PRODUCT_PIDS.CPANEL_DELUXE, "Shared Pro"),
+        price: lp(PRODUCT_PIDS.CPANEL_DELUXE, "₦3,500"),
         period: "mo",
         description: "For growing sites",
         features: ["10 Websites", "50GB Storage", "Unlimited Bandwidth", "Free .com.ng", "Daily Backups"],
-        ctaLink: "https://app.venihost.com.ng/cart.php?gid=1"
+        ctaLink: getCartUrl(PRODUCT_PIDS.CPANEL_DELUXE)
       }
     ],
     vps: [
       {
-        name: "VPS Start",
-        price: "₦15,000",
+        name: ln(PRODUCT_PIDS.VPS_START, "VPS Start"),
+        price: lp(PRODUCT_PIDS.VPS_START, "₦15,000"),
         period: "mo",
         description: "Standard Linux VPS",
         features: ["2 vCPU Cores", "4GB RAM", "80GB SSD", "Full Root Access", "Dedicated IP"],
-        ctaLink: "/vps-hosting"
+        ctaLink: getCartUrl(PRODUCT_PIDS.VPS_START)
       },
       {
-        name: "Windows Start",
-        price: "₦20,000",
+        name: ln(PRODUCT_PIDS.WINDOWS_VPS_START, "Windows Start"),
+        price: lp(PRODUCT_PIDS.WINDOWS_VPS_START, "₦20,000"),
         period: "mo",
         description: "Standard Windows VPS",
         features: ["2 vCPU Cores", "4GB RAM", "80GB SSD", "Full RDP Access", "Win Server 2022"],
-        ctaLink: "/windows-vps",
+        ctaLink: getCartUrl(PRODUCT_PIDS.WINDOWS_VPS_START),
         isPopular: true
       },
       {
-        name: "Storage 500",
-        price: "₦15,000",
+        name: ln(PRODUCT_PIDS.STORAGE_VPS, "Storage 500"),
+        price: lp(PRODUCT_PIDS.STORAGE_VPS, "₦15,000"),
         period: "mo",
         description: "Massive storage VPS",
         features: ["1 vCPU Core", "2GB RAM", "500GB HDD", "Full Root Access", "Backup Expert"],
-        ctaLink: "/storage-vps"
+        ctaLink: getCartUrl(PRODUCT_PIDS.STORAGE_VPS)
       }
     ],
     cloud: [
-        {
-            name: "Cloud VPS Start",
-            price: "₦25,000",
-            period: "mo",
-            description: "Distributed Cloud VPS",
-            features: ["4GB RAM", "2 vCPU Cores", "100GB NVMe", "High Availability", "Instant Scaling"],
-            ctaLink: "/cloud-vps"
-        },
-        {
-            name: "Professional Plus",
-            price: "₦2,500",
-            period: "mo/user",
-            description: "Qbox Business Email",
-            features: ["50GB Mailbox", "Premium Anti-Spam", "Shared Calendars", "ActiveSync", "Mobile Support"],
-            ctaLink: "/qbox-email",
-            isPopular: true
-        },
-        {
-            name: "Cloud Dedicated",
-            price: "₦85,000",
-            period: "mo",
-            description: "Maximum server power",
-            features: ["Intel Xeon E-2224", "16GB DDR4 RAM", "2x 500GB SSD", "10TB Bandwidth", "Bare Metal"],
-            ctaLink: "/dedicated-servers"
-        }
+      {
+        name: ln(PRODUCT_PIDS.CLOUD_VPS_START, "Cloud VPS Start"),
+        price: lp(PRODUCT_PIDS.CLOUD_VPS_START, "₦25,000"),
+        period: "mo",
+        description: "Distributed Cloud VPS",
+        features: ["4GB RAM", "2 vCPU Cores", "100GB NVMe", "High Availability", "Instant Scaling"],
+        ctaLink: getCartUrl(PRODUCT_PIDS.CLOUD_VPS_START)
+      },
+      {
+        name: ln(PRODUCT_PIDS.EMAIL_PRO, "Professional Plus"),
+        price: lp(PRODUCT_PIDS.EMAIL_PRO, "₦2,500"),
+        period: "mo/user",
+        description: "Business Email Hosting",
+        features: ["50GB Mailbox", "Premium Anti-Spam", "Shared Calendars", "ActiveSync", "Mobile Support"],
+        ctaLink: getCartUrl(PRODUCT_PIDS.EMAIL_PRO),
+        isPopular: true
+      },
+      {
+        name: ln(PRODUCT_PIDS.DEDICATED_START, "Cloud Dedicated"),
+        price: lp(PRODUCT_PIDS.DEDICATED_START, "₦85,000"),
+        period: "mo",
+        description: "Maximum server power",
+        features: ["Intel Xeon E-2224", "16GB DDR4 RAM", "2x 500GB SSD", "10TB Bandwidth", "Bare Metal"],
+        ctaLink: getCartUrl(PRODUCT_PIDS.DEDICATED_START)
+      }
     ],
     developer: [
-        {
-            name: "Django Basic",
-            price: "₦3,500",
-            period: "mo",
-            description: "Optimized Python",
-            features: ["1 Python Website", "15GB NVMe Storage", "GIT Push Deploy", "Private Gunicorn", "PostgreSQL"],
-            ctaLink: "/django-hosting"
-        },
-        {
-            name: "WP Pro",
-            price: "₦1,700",
-            period: "mo",
-            description: "Litespeed & WordPress",
-            features: ["5 Websites", "15GB NVMe Storage", "WP Staging", "GIT Integration", "Object Cache"],
-            ctaLink: "https://app.venihost.com.ng/cart.php?a=add&pid=68",
-            isPopular: true
-        },
-        {
-            name: "cPanel Pro",
-            price: "₦7,500",
-            period: "mo",
-            description: "Premium Shared",
-            features: ["Unlimited Websites", "Unlimited Storage", "Premium Support", "Free Migration", "Imunify360"],
-            ctaLink: "/cpanel-hosting"
-        }
+      {
+        name: "Django Basic",
+        price: "₦3,500",
+        period: "mo",
+        description: "Optimized Python",
+        features: ["1 Python Website", "15GB NVMe Storage", "GIT Push Deploy", "Private Gunicorn", "PostgreSQL"],
+        ctaLink: "/django-hosting"
+      },
+      {
+        name: ln(PRODUCT_PIDS.WP_PRO, "WP Pro"),
+        price: lp(PRODUCT_PIDS.WP_PRO, "₦1,700"),
+        period: "mo",
+        description: "Litespeed & WordPress",
+        features: ["5 Websites", "15GB NVMe Storage", "WP Staging", "GIT Integration", "Object Cache"],
+        ctaLink: getCartUrl(PRODUCT_PIDS.WP_PRO),
+        isPopular: true
+      },
+      {
+        name: ln(PRODUCT_PIDS.CPANEL_ULTIMATE, "cPanel Pro"),
+        price: lp(PRODUCT_PIDS.CPANEL_ULTIMATE, "₦7,500"),
+        period: "mo",
+        description: "Premium Shared",
+        features: ["Unlimited Websites", "Unlimited Storage", "Premium Support", "Free Migration", "Imunify360"],
+        ctaLink: getCartUrl(PRODUCT_PIDS.CPANEL_ULTIMATE)
+      }
     ]
   };
 

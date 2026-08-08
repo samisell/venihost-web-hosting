@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown, Cloud, Server, Cpu, Globe, Phone, Briefcase, Hote
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 import OptimizedImage from '@/src/components/OptimizedImage';
+import { getPortalLoginUrl } from '@/src/lib/whmcs';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -202,9 +203,7 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-4">
             <a 
-              href="https://app.venihost.com.ng/clientarea.php" 
-              target="_blank"
-              rel="noopener noreferrer"
+              href={getPortalLoginUrl()} 
               className="text-primary font-medium hover:text-secondary transition-colors"
             >
               Login
@@ -274,9 +273,7 @@ const Navbar = () => {
               ))}
               <div className="pt-4 flex flex-col gap-3">
                 <a 
-                  href="https://app.venihost.com.ng/clientarea.php" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={getPortalLoginUrl()} 
                   className="w-full text-center py-3 rounded-xl border border-slate-200 font-semibold text-primary"
                 >
                   Login
