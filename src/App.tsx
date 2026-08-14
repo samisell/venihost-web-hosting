@@ -36,6 +36,7 @@ import NotFound from '@/src/pages/NotFound';
 import CookieConsent from '@/src/components/CookieConsent';
 import FacebookPixel from '@/src/components/FacebookPixel';
 import GoogleAnalytics from '@/src/components/GoogleAnalytics';
+import PromoPopup from '@/src/components/PromoPopup';
 
 export default function App() {
   return (
@@ -81,6 +82,7 @@ export default function App() {
         <CookieConsent />
         <FacebookPixel />
         <GoogleAnalytics />
+        <PromoPopup />
       </div>
     </Router>
   );

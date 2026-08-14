@@ -7,12 +7,3 @@ coverage/
 .env*
 !.env.example
 
-# Ignore image files as requested
-*.png
-*.jpg
-*.jpeg
-*.jfif
-*.webp
-*.gif
-*.svg
-*.ico

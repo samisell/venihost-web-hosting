@@ -27,6 +27,10 @@ const Footer = () => {
             <p className="text-slate-400 leading-relaxed text-lg max-w-sm">
                 Empowering businesses with elite web hosting and enterprise software solutions since 2015. Superior speed, ironclad security, and 24/7 expert support.
             </p>
+            <div className="flex items-start gap-3 text-sm text-slate-300">
+              <MapPin size={18} className="text-secondary shrink-0 mt-0.5" />
+              <span>2nd Floor, Bamboo Plaza, Ojudu Berger, Lagos State, Nigeria.</span>
+            </div>
             <div className="flex items-center gap-4">
               {[
                 { icon: Facebook, href: "https://www.facebook.com/share/18PRvzvweS/?mibextid=wwXIfr" },

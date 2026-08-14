@@ -12,7 +12,14 @@ const Contact = () => {
     "mainEntity": {
       "@type": "Organization",
       "name": "Venihost",
-      "url": "https://ais-dev-ezycmo3ejzvw32hzuwnebg-203073481385.europe-west1.run.app",
+      "url": "https://venihost.com.ng",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2nd Floor, Bamboo Plaza, Ojudu Berger",
+        "addressLocality": "Lagos",
+        "addressRegion": "Lagos State",
+        "addressCountry": "NG"
+      },
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+234-811-685-6186",
@@ -87,7 +94,7 @@ const Contact = () => {
                 <h2 className="text-3xl font-extrabold text-primary mb-8">Contact Information</h2>
                 <div className="space-y-6">
                   {[
-                    { title: "Our Office", val: "Tech Hub, Lagos, Nigeria", icon: MapPin },
+                    { title: "Our Office", val: "2nd Floor, Bamboo Plaza, Ojudu Berger, Lagos State, Nigeria.", icon: MapPin },
                     { title: "Phone Number", val: "+234 811 685 6186", icon: Phone },
                     { title: "WhatsApp", val: "+234 811 685 6146", icon: MessageSquare },
                     { title: "Email Address", val: "hello@venihost.com.ng", icon: Mail }
@@ -187,11 +194,11 @@ const Contact = () => {
           className="w-full h-full object-cover grayscale opacity-50"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-2xl shadow-2xl border border-slate-100 text-center">
+        <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div className="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-100 text-center max-w-md">
             <MapPin className="text-secondary mx-auto mb-2" size={32} />
-            <h4 className="font-bold text-primary">Venihost Headquarters</h4>
-            <p className="text-sm text-slate-500">Visit us anytime!</p>
+            <h4 className="font-bold text-primary text-lg mb-1">Venihost Headquarters</h4>
+            <p className="text-sm font-medium text-slate-600">2nd Floor, Bamboo Plaza, Ojudu Berger, Lagos State, Nigeria.</p>
           </div>
         </div>
       </section>
