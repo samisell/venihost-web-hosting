@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Check, Shield, Zap, Cpu, Server, Database, HardDrive, CheckCircle2 } from 'lucide-react';
+import { Check, Shield, Zap, Cpu, Server, Database, HardDrive, CheckCircle2, Globe } from 'lucide-react';
 import PricingCard from '@/src/components/PricingCard';
 import OptimizedImage from '@/src/components/OptimizedImage';
 import SEO from '@/src/components/SEO';

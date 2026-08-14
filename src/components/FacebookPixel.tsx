@@ -23,7 +23,7 @@ const FacebookPixel: React.FC = () => {
 
     // Initialize Pixel if not already done
     if (!window.fbq) {
-      !(function (f, b, e, v, n, t, s) {
+      (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
         if (f.fbq) return;
         n = f.fbq = function () {
           n.callMethod

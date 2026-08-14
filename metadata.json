@@ -1,5 +1,8 @@
 {
   "name": "Venihost Web Hosting",
   "description": "Modern, fast, and secure web hosting solutions for businesses and individuals.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
