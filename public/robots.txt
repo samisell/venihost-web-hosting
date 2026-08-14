@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://venihost.com.ng/sitemap
+# XML Sitemap for Search Engines
+Sitemap: https://venihost.com.ng/sitemap.xml

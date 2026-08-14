@@ -16,6 +16,7 @@ import TermsOfService from '@/src/pages/TermsOfService';
 import TermsOfUse from '@/src/pages/TermsOfUse';
 import PrivacyPolicy from '@/src/pages/PrivacyPolicy';
 import Sitemap from '@/src/pages/Sitemap';
+import SitemapXml from '@/src/pages/SitemapXml';
 import OurBusinesses from '@/src/pages/OurBusinesses';
 import StudyAbroadCRM from '@/src/pages/StudyAbroadCRM';
 import HotelManagement from '@/src/pages/HotelManagement';
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/sitemap" element={<Sitemap />} />
+            <Route path="/sitemap.xml" element={<SitemapXml />} />
             <Route path="/our-businesses" element={<OurBusinesses />} />
             <Route path="/study-abroad-crm" element={<StudyAbroadCRM />} />
             <Route path="/hotel-management" element={<HotelManagement />} />
