@@ -6,7 +6,53 @@
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <meta name="robots" content="index, follow" />
-    <title>Venihost - Fast, Secure & Reliable Web Hosting</title>
+    <title>Venihost Web Hosting</title>
+    <meta name="description" content="Modern, fast, and secure web hosting solutions for businesses and individuals." />
+    <meta property="og:title" content="Venihost Web Hosting" />
+    <meta property="og:description" content="Modern, fast, and secure web hosting solutions for businesses and individuals." />
+    <script>
+      (function() {
+        function patchTarget(target) {
+          if (!target) return;
+          var curr = target;
+          while (curr && curr !== Object.prototype) {
+            try {
+              var desc = Object.getOwnPropertyDescriptor(curr, 'fetch');
+              if (desc && !desc.set && desc.configurable) {
+                var originalGet = desc.get || function() { return desc.value; };
+                Object.defineProperty(curr, 'fetch', {
+                  get: originalGet,
+                  set: function(v) {
+                    Object.defineProperty(this, 'fetch', {
+                      value: v,
+                      writable: true,
+                      configurable: true,
+                      enumerable: true
+                    });
+                  },
+                  configurable: true,
+                  enumerable: desc.enumerable !== false
+                });
+              }
+            } catch (e) {}
+            curr = Object.getPrototypeOf(curr);
+          }
+        }
+        if (typeof window !== 'undefined') patchTarget(window);
+        if (typeof Window !== 'undefined' && Window.prototype) patchTarget(Window.prototype);
+        if (typeof globalThis !== 'undefined') patchTarget(globalThis);
+
+        window.addEventListener('error', function(event) {
+          if (event && event.message && event.message.indexOf('fetch') !== -1 && event.message.indexOf('has only a getter') !== -1) {
+            event.preventDefault();
+            if (typeof event.stopImmediatePropagation === 'function') {
+              event.stopImmediatePropagation();
+            }
+            return true;
+          }
+        }, true);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
