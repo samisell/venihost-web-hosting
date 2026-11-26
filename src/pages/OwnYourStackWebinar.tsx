@@ -29,7 +29,7 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ idPrefix, inputRef }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
 
@@ -49,48 +49,38 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ idPrefix, inputRef }) => {
 
     setIsSubmitting(true);
 
-    const completeSubmission = () => {
-      try {
-        const existingRaw = localStorage.getItem('venihost_own_your_stack_waitlist');
-        const existing = existingRaw ? JSON.parse(existingRaw) : [];
-        existing.push({
+    try {
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          formType: 'waitlist',
+          productName: 'Own Your Stack Webinar — VeniHost Open Source Empowerment Campaign',
           name: trimmedName,
           email: trimmedEmail,
-          joinedAt: new Date().toISOString()
-        });
-        localStorage.setItem('venihost_own_your_stack_waitlist', JSON.stringify(existing));
-      } catch {
-        // Ignore storage errors in restricted environments
+          message: 'Registered for the Own Your Stack live webinar waitlist.',
+          sourceUrl: typeof window !== 'undefined' ? window.location.href : ''
+        })
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok || !payload.ok) {
+        setErrorMessage(
+          payload.error || 'Unable to join the waitlist right now. Please try again.'
+        );
+        setIsSubmitting(false);
+        return;
       }
+
       setIsSubmitting(false);
       setIsSuccess(true);
-    };
-
-    fetch('https://formsubmit.co/ajax/hello@venihost.com.ng', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({
-        Campaign: 'VeniHost Open Source Empowerment Campaign — Own Your Stack Webinar',
-        Name: trimmedName,
-        Email: trimmedEmail,
-        Source: typeof window !== 'undefined' ? window.location.href : 'venihost.com.ng/own-your-stack'
-      })
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Submission response not ok');
-        }
-        return res.json();
-      })
-      .then(() => {
-        completeSubmission();
-      })
-      .catch(() => {
-        completeSubmission();
-      });
+    } catch {
+      setIsSubmitting(false);
+      setErrorMessage('Network error while joining the waitlist. Please try again.');
+    }
   };
 
   if (isSuccess) {

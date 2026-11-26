@@ -17,7 +17,7 @@ const businesses = [
     image: '/servers-delivering-web-content.jpg',
     features: ['Unlimited Data', 'Low Latency', '24/7 Monitoring', 'Quick Installation'],
     color: 'bg-blue-600',
-    link: 'https://spellnet.venihost.com.ng',
+    link: 'https://spellnet.venihost.com',
     ctaText: 'Visit Spellnet'
   },
   {
@@ -29,7 +29,7 @@ const businesses = [
     image: '/photo_5951573248094964867_y.jpg',
     features: ['High-Speed WiFi', 'Meeting Rooms', 'Coffee Bar', 'Networking Events'],
     color: 'bg-emerald-600',
-    link: 'https://venihub.venihost.com.ng',
+    link: 'https://venihub.venihost.com',
     ctaText: 'Visit Venihub'
   },
   {
@@ -43,8 +43,8 @@ const businesses = [
     image: '/smiling-engineer-using-laptop-data-center-oversee-hardware.jpg',
     features: ['Live Online Interactive Classes', 'Physical Classes (Coming Soon)', 'Hands-on Real World Projects', 'Mentorship & Certification'],
     color: 'bg-indigo-600',
-    link: '/contact',
-    ctaText: 'Enroll in Online Classes'
+    link: 'https://codelab.venihost.com',
+    ctaText: 'Visit Codelab'
   }
 ];
 

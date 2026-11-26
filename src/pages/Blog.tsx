@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,46 @@ import OptimizedImage from '@/src/components/OptimizedImage';
 import { blogPosts } from '@/src/data/blogPosts';
 
 const Blog = () => {
+    const [newsletterEmail, setNewsletterEmail] = useState('');
+    const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+    const [newsletterMsg, setNewsletterMsg] = useState('');
+
+    const handleNewsletterSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const trimmed = newsletterEmail.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+            setNewsletterStatus('error');
+            setNewsletterMsg('Please enter a valid email address.');
+            return;
+        }
+        setNewsletterStatus('submitting');
+        setNewsletterMsg('');
+        try {
+            const response = await fetch('/api/submit-form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({
+                    formType: 'newsletter',
+                    email: trimmed,
+                    message: 'Blog newsletter subscription request',
+                    sourceUrl: typeof window !== 'undefined' ? window.location.href : ''
+                })
+            });
+            const payload = await response.json().catch(() => ({}));
+            if (!response.ok || !payload.ok) {
+                setNewsletterStatus('error');
+                setNewsletterMsg(payload.error || 'Unable to subscribe right now. Please try again.');
+                return;
+            }
+            setNewsletterStatus('success');
+            setNewsletterMsg('Subscribed! Thank you for joining our mailing list.');
+            setNewsletterEmail('');
+        } catch {
+            setNewsletterStatus('error');
+            setNewsletterMsg('Network error while subscribing. Please try again.');
+        }
+    };
+
     // Structured Data for BlogListing
     const structuredData = {
         "@context": "https://schema.org",
@@ -126,17 +166,31 @@ const Blog = () => {
                             <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
                                 Subcribe to our mailing list for the latest blog updates and exclusive infrastructure insights delivered straight to your inbox.
                             </p>
-                            <form className="max-w-2xl mx-auto flex flex-col md:flex-row gap-4">
+                            <form onSubmit={handleNewsletterSubmit} className="max-w-2xl mx-auto flex flex-col md:flex-row gap-4">
                                 <input 
                                     type="email" 
+                                    value={newsletterEmail}
+                                    onChange={(e) => setNewsletterEmail(e.target.value)}
                                     placeholder="Enter your professional email address" 
-                                    className="flex-grow px-8 py-5 rounded-full text-primary font-medium focus:outline-none focus:ring-4 ring-white/20"
+                                    className="flex-grow px-8 py-5 rounded-full bg-white text-primary font-medium focus:outline-none focus:ring-4 ring-white/20"
                                     required
                                 />
-                                <button className="px-12 py-5 bg-primary text-white rounded-full font-bold text-lg shadow-xl hover:scale-105 transition-all">
-                                    Subscribe Now
+                                <button
+                                    type="submit"
+                                    disabled={newsletterStatus === 'submitting'}
+                                    className="px-12 py-5 bg-primary text-white rounded-full font-bold text-lg shadow-xl hover:scale-105 transition-all disabled:opacity-70 cursor-pointer"
+                                >
+                                    {newsletterStatus === 'submitting' ? 'Subscribing...' : 'Subscribe Now'}
                                 </button>
                             </form>
+                            {newsletterMsg && (
+                                <p
+                                    role={newsletterStatus === 'error' ? 'alert' : 'status'}
+                                    className={`mt-4 text-sm font-medium ${newsletterStatus === 'error' ? 'text-rose-100' : 'text-white'}`}
+                                >
+                                    {newsletterMsg}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>

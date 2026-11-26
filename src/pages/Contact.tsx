@@ -36,11 +36,45 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for your message! Our team will get back to you shortly.');
-    setFormState({ name: '', email: '', subject: '', message: '' });
+    setErrorMessage('');
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          formType: 'contact',
+          name: formState.name.trim(),
+          email: formState.email.trim(),
+          subject: formState.subject.trim(),
+          message: formState.message.trim(),
+          sourceUrl: typeof window !== 'undefined' ? window.location.href : ''
+        })
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok || !payload.ok) {
+        setErrorMessage(
+          payload.error || 'Unable to send your message right now. Please try again.'
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setFormState({ name: '', email: '', subject: '', message: '' });
+    } catch {
+      setIsSubmitting(false);
+      setErrorMessage('Network error while sending your message. Please try again.');
+    }
   };
 
   return (
@@ -126,60 +160,85 @@ const Contact = () => {
             <div className="lg:col-span-2">
               <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-slate-100">
                 <h2 className="text-3xl font-extrabold text-primary mb-8">Send Us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {isSuccess ? (
+                  <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center" role="status" aria-live="polite">
+                    <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-4">
+                      <Check size={28} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-green-900 mb-2">Message Sent!</h3>
+                    <p className="text-green-700 mb-6">
+                      Thank you for contacting Venihost. Our team has been notified and will get back to you shortly.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setIsSuccess(false)}
+                      className="px-6 py-3 rounded-xl bg-green-700 text-white font-semibold text-sm hover:bg-green-800 transition-colors cursor-pointer"
+                    >
+                      Send Another Message
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-sm font-bold text-primary ml-1">Full Name</label>
+                        <input 
+                          type="text" 
+                          required
+                          value={formState.name}
+                          onChange={(e) => setFormState({...formState, name: e.target.value})}
+                          placeholder="John Doe" 
+                          className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-bold text-primary ml-1">Email Address</label>
+                        <input 
+                          type="email" 
+                          required
+                          value={formState.email}
+                          onChange={(e) => setFormState({...formState, email: e.target.value})}
+                          placeholder="john@example.com" 
+                          className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
+                        />
+                      </div>
+                    </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-primary ml-1">Full Name</label>
+                      <label className="text-sm font-bold text-primary ml-1">Subject</label>
                       <input 
                         type="text" 
                         required
-                        value={formState.name}
-                        onChange={(e) => setFormState({...formState, name: e.target.value})}
-                        placeholder="John Doe" 
+                        value={formState.subject}
+                        onChange={(e) => setFormState({...formState, subject: e.target.value})}
+                        placeholder="How can we help you?" 
                         className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-primary ml-1">Email Address</label>
-                      <input 
-                        type="email" 
+                      <label className="text-sm font-bold text-primary ml-1">Message</label>
+                      <textarea 
                         required
-                        value={formState.email}
-                        onChange={(e) => setFormState({...formState, email: e.target.value})}
-                        placeholder="john@example.com" 
-                        className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
+                        value={formState.message}
+                        onChange={(e) => setFormState({...formState, message: e.target.value})}
+                        rows={6}
+                        placeholder="Write your message here..." 
+                        className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all resize-none"
                       />
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-primary ml-1">Subject</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={formState.subject}
-                      onChange={(e) => setFormState({...formState, subject: e.target.value})}
-                      placeholder="How can we help you?" 
-                      className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-primary ml-1">Message</label>
-                    <textarea 
-                      required
-                      value={formState.message}
-                      onChange={(e) => setFormState({...formState, message: e.target.value})}
-                      rows={6}
-                      placeholder="Write your message here..." 
-                      className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all resize-none"
-                    />
-                  </div>
-                  <button 
-                    type="submit"
-                    className="w-full md:w-auto px-12 py-5 bg-secondary text-white rounded-full font-bold text-lg shadow-xl shadow-secondary/20 hover:bg-secondary/90 transition-all flex items-center justify-center gap-3"
-                  >
-                    Send Message <Send size={20} />
-                  </button>
-                </form>
+                    {errorMessage && (
+                      <div role="alert" className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm">
+                        {errorMessage}
+                      </div>
+                    )}
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full md:w-auto px-12 py-5 bg-secondary text-white rounded-full font-bold text-lg shadow-xl shadow-secondary/20 hover:bg-secondary/90 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      {isSubmitting ? 'Sending Message...' : <>Send Message <Send size={20} /></>}
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
