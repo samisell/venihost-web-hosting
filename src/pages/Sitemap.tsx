@@ -36,6 +36,7 @@ const Sitemap: React.FC = () => {
       icon: Layout,
       links: [
         { name: 'Home', path: '/', desc: 'High-speed cloud & web hosting platform' },
+        { name: 'Own Your Stack Webinar', path: '/own-your-stack', desc: 'Open Source Empowerment Campaign waitlist' },
         { name: 'Our Businesses', path: '/our-businesses', desc: 'Overview of Venihost products & solutions' },
         { name: 'Pricing', path: '/pricing', desc: 'Transparent hosting & domain pricing' },
         { name: 'About Us', path: '/about', desc: 'Our mission, data centers & infrastructure' },

@@ -75,6 +75,7 @@ const Navbar = () => {
       ]
     },
     { name: 'Domains', path: '/domains' },
+    { name: 'Webinar', path: '/own-your-stack' },
     { name: 'Our Ecosystem', path: '/our-businesses' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },

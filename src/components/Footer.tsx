@@ -80,6 +80,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <h4 className="text-white font-bold mb-8 text-sm uppercase tracking-widest">Company</h4>
             <ul className="flex flex-col gap-4 text-slate-400 font-medium">
+              <li><Link to="/own-your-stack" className="hover:text-secondary transition-colors">Own Your Stack Webinar</Link></li>
               <li><Link to="/about" className="hover:text-secondary transition-colors">About Us</Link></li>
               <li><Link to="/our-businesses" className="hover:text-secondary transition-colors">Our Ecosystem</Link></li>
               <li><Link to="/contact" className="hover:text-secondary transition-colors">Contact</Link></li>
