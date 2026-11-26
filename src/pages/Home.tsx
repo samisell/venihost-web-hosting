@@ -45,7 +45,9 @@ const Home = () => {
         "sameAs": [
           "https://www.facebook.com/share/18PRvzvweS/?mibextid=wwXIfr",
           "https://x.com/venihost",
-          "https://www.instagram.com/venihost"
+          "https://www.instagram.com/venihost",
+          "https://www.linkedin.com/company/145503173",
+          "https://whatsapp.com/channel/0029VbDdEre59PwR4RpBhk0Z"
         ]
       }
     ]

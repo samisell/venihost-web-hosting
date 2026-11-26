@@ -3,6 +3,24 @@ import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Cloud } from 'lucide-react';
 import OptimizedImage from '@/src/components/OptimizedImage';
 
+const WhatsAppIcon: React.FC<{ size?: number; className?: string }> = ({ size = 22, className }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+  </svg>
+);
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -31,13 +49,23 @@ const Footer = () => {
               <MapPin size={18} className="text-secondary shrink-0 mt-0.5" />
               <span>2nd Floor, Bamboo Plaza, Ojudu Berger, Lagos State, Nigeria.</span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               {[
-                { icon: Facebook, href: "https://www.facebook.com/share/18PRvzvweS/?mibextid=wwXIfr" },
-                { icon: Twitter, href: "https://x.com/venihost" },
-                { icon: Instagram, href: "https://www.instagram.com/venihost" }
+                { label: "Facebook", icon: Facebook, href: "https://www.facebook.com/share/18PRvzvweS/?mibextid=wwXIfr" },
+                { label: "X (Twitter)", icon: Twitter, href: "https://x.com/venihost" },
+                { label: "Instagram", icon: Instagram, href: "https://www.instagram.com/venihost" },
+                { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/145503173" },
+                { label: "WhatsApp Channel", icon: WhatsAppIcon, href: "https://whatsapp.com/channel/0029VbDdEre59PwR4RpBhk0Z" }
               ].map((social, i) => (
-                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:border-secondary transition-all group">
+                <a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow Venihost on ${social.label}`}
+                  title={social.label}
+                  className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:border-secondary transition-all group"
+                >
                   <social.icon size={22} className="group-hover:scale-110 transition-transform" />
                 </a>
               ))}
